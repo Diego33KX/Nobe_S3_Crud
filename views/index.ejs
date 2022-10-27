@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>CRUD MONGODB</title>
+    <style>
+        .container{
+            max-width: 80%;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <br><br>
+        <div class="shadow-lg pb-3 mb-5 bg-body rounded container py-5">
+            <h4 class="text-center">Datos del contacto</h4>
+            <div id="formulario">
+            <form>
+                <div class="col py-2">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" class="form-control" required>
+                </div>
+                <div class="col py-2">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" id="edad" name="edad" class="form-control" required>
+                </div>
+                <div class="col py-2">
+                    <label for="telefono" class="form-label">Telefono</label>
+                    <input type="number" id="telefono" name="telefono" class="form-control" required>
+                </div>
+                <div class="col py-2">
+                    <label for="file">File</label>
+                    <input type="file" name="file" id="file" class="form-control" />
+                </div>
+                <br>
+                <input type="submit" value="Upload" id="upload" class="btn btn-primary">
+                <span id="carga">Sin cargar</span>
+                <input type="button" value="Actualizar" onclick="location.reload()" class="btn btn-success"/>
+                <!-- <button type="submit" class="w-100 btn btn-guardar btn-lg"  id="upload"><i class="bi bi-save"></i>Registrar contacto</button> -->
+            </form>
+            </div>
+            
+            <table id="tablaContactos" class="table mt-4">
+                <thead>
+                    <tr>
+                        <th style="display:none ;">ID</th>
+                        <th>Nombres</th>
+                        <th>Edad</th>
+                        <th>Telefono</th>
+                        <th>Imagen</th>
+                        <th>Acciones </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% contactos.forEach( (contacto) => { %>
+                        <tr>
+                            <td style="display:none ;"><%= contacto._id %></td>
+                            <td><%= contacto.nombre %></td>
+                            <td><%= contacto.edad %></td>
+                            <td><%= contacto.telefono %></td>
+                            <td>
+                                <img src="<%= contacto.imagen%>" width="150" height="100">
+                            </td>
+                            <td>
+                                <a type="button" class="btnEditar btn btn-outline-primary bi bi-pencil"></a>
+                                <a href="/borrar/<%= contacto._id %>" class="btn btn-outline-danger bi bi-trash"></a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="modal fade" id="modalContacto" tabindex="-1" aria-labelledby="modalContacto" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title" id="exampleModalLabel">Editar informacion del contacto</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/editar" method="POST">
+                        <input type="text" name="id_editar" id="id_editar" hidden>
+                        <div class="col-md-6">
+                            <label for="nombre_editar" class="form-label">Nombre</label>
+                            <input type="text" id="nombre_editar" name="nombre_editar" class="form-control" value="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="edad_editar" class="form-label">Edad</label>
+                            <input type="number" id="edad_editar" name="edad_editar" class="form-control" value="">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="telefono_editar" class="form-label">Telefono</label>
+                            <input type="number" id="telefono_editar" name="telefono_editar" class="form-control" value="">
+                        </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-outline-primary">Actualizar</button>
+                        </div>
+                    </form>
+                    
+                </div>
+                
+              </div>
+            </div>
+          </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<script src="js/code.js">
+
+</script>
+  </body>
+</html>
